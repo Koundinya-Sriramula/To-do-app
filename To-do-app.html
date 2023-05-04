@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do List</title>
+    <style>
+      /* CSS styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+      #task-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 10px;
+      }
+      .task input[type="checkbox"] {
+        margin-right: 10px;
+      }
+      .task .delete-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .task .delete-btn:hover {
+        background-color: #c62828;
+      }
+      .input-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      #task-input {
+        width: 80%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      #add-task-btn {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      #add-task-btn:hover {
+        background-color: #357a38;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>To-Do List</h1>
+    <ul id="task-list"></ul>
+    <div class="input-container">
+      <input type="text" id="task-input" placeholder="Enter a new task...">
+      <button id="add-task-btn">Add Task</button>
+    </div>
+    <script>
+      // JavaScript code
+      const taskList = document.getElementById("task-list");
+      const taskInput = document.getElementById("task-input");
+      const addTaskBtn = document.getElementById("add-task-btn");
+
+      function addTask() {
+        const task = taskInput.value;
+        if (task) {
+          const taskItem = document.createElement("li");
+          taskItem.classList.add("task");
+          taskItem.innerHTML = `
+            <input type="checkbox">
+            <span>${task}</span>
+            <button class="delete-btn">Delete</button>
+          `;
+          const deleteBtn = taskItem.querySelector(".delete-btn");
+          deleteBtn.addEventListener("click", () => {
+            taskItem.remove();
+          });
+          taskList.appendChild(taskItem);
+          taskInput.value = "";
+        }
+      }
+
+      addTaskBtn.addEventListener("click", addTask);
+      taskInput.addEventListener("keypress", (event) => {
+        if (event.keyCode === 13) {
+          addTask();
+        }
+      });
+    </script>
+  </body>
+</html>
